@@ -59,7 +59,7 @@ moveBlock();
       intervalId = setInterval(() => {
         seconds++;
         secondsDisplay.textContent = seconds;
-      }, 500);
+      }, 1000);
     }
   });
 
