@@ -84,3 +84,45 @@ convertor(somInput)
 convertor(usdInput)
 convertor(eurInput)
 
+//card switcher
+
+const cardBlock = document.querySelector('.card')
+const btnNext = document.querySelector('#btn-next')
+const btnPrev = document.querySelector('#btn-prev')
+
+let numId = 1
+const maxId = 200
+
+const fetchCard = () => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${numId}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const { title, id, completed } = data
+            cardBlock.style.borderColor = completed ? 'green' : 'red'
+            cardBlock.innerHTML = `
+                <p>${title}</p>
+                <span>${id}</span>
+            `
+        })
+}
+
+fetchCard()
+
+const changeCard = (direction) => {
+    numId = direction === 'next'
+        ? (numId >= maxId ? 1 : numId + 1)
+        : (numId <= 1 ? maxId : numId - 1)
+    fetchCard()
+}
+
+btnNext.onclick = () => changeCard('next')
+btnPrev.onclick = () => changeCard('prev')
+
+//fetch Запрос
+
+fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Список постов:', data)
+    })
+   
